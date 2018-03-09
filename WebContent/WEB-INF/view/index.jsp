@@ -13,7 +13,8 @@
 				<small>- ${ment } -</small>
 				<hr>
 			</div>
-			<div>
+			<div align="right">
+				<a href="/join">회원가입</a>
 			</div>
 		</div>
 	</div>
