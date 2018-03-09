@@ -5,17 +5,25 @@
 <head>
 <title>Spring - managed by GIT</title>
 </head>
+<style>
+	a {
+		text-decoration: none;
+	}
+	
+</style>
 <body>
 	<div align="center">
 		<div style="width: 980px;">
 			<div>
 				<h1>Spring Project</h1>
 				<small>- ${ment } -</small>
-				<hr>
 			</div>
-			<div align="right">
-				<a href="/join">회원가입</a>
+			<hr/>
+			<div align="right" style="padding-right: 20px;">
+				<a href="/login"><span>Sign in</span></a> <span>or</span> 
+				<a href="/join"><span>Sign up</span></a>
 			</div>
+			<hr/>
 		</div>
 	</div>
 </body>
