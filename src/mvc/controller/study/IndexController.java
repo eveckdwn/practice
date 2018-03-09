@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import mvc.service.GreetService;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class IndexController {
 	
 	@Autowired
