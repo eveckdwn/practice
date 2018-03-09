@@ -23,7 +23,7 @@ public class MemberService {
 		return template.insert("member.addNewOne", map)==1;
 	}
 	
-	public int readId(Map map) {
+	public int loginCheck(Map map) {
 		Map member = template.selectOne("member.checkId", map.get("id"));
 		if(member == null) {
 			return 1;
@@ -33,5 +33,10 @@ public class MemberService {
 			return 2;
 		}
 	}
+	
+	public Map readId(String id) {
+		return template.selectOne("member.checkId", id);
+	}
+	
 
 }

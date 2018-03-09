@@ -1,30 +1,27 @@
 package mvc.controller.study;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import mvc.service.GreetService;
+import mvc.service.MemberService;
 
 @Controller
-@RequestMapping("/")
-public class IndexController {
-	
+@RequestMapping("/chat")
+public class ChattingController {
 	@Autowired
-	GreetService greetService;
+	MemberService memberService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String indexHandle(Model model, HttpSession session) {
-		if(session.getAttribute("logon") != null) {
-			model.addAttribute("logon", session.getAttribute("logon"));
-		};
-		model.addAttribute("ment", greetService.make());
-		return "index";
+	public String MakeChatroom(HttpSession session, Model model) {
+		Map member = memberService.readId((String)session.getAttribute("logon"));
+		model.addAttribute("lv", member.get("LV"));
+		return "makeChatroom";
 	}
-
 }

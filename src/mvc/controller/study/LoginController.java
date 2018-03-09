@@ -27,7 +27,7 @@ public class LoginController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String loginPHandle(@RequestParam Map map, HttpSession session, Model model) {
-		int result = memberService.readId(map);
+		int result = memberService.loginCheck(map);
 		switch(result) {
 		case 0:
 			session.setAttribute("logon", map.get("id"));
