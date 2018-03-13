@@ -5,34 +5,51 @@
 <head>
 <title>Spring - managed by GIT</title>
 </head>
-<style>
-	a {
-		text-decoration: none;
-	}
-	
-</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <body>
-	<div align="center">
-		<div style="width: 980px;">
-			<div>
-				<h1>Spring Project</h1>
-				<small>- ${ment } -</small>
+	<div align="center" class="container">
+		<div class="jumbotron">
+			<h1>Spring Project</h1>
+			<small>- ${ment } -</small>
+		</div>
+		<hr />
+		<div align="right" style="padding-right: 20px;">
+			<a href="/login"><span>Sign in</span></a> <span>or</span> <a
+				href="/join"><span>Sign up</span></a>
+		</div>
+		<hr />
+		<div>
+			<div class="alert alert-info">
+				<strong>현재접속자수:</strong><span id="cnt"></span> / <strong>서버알림</strong><span id="info"></span>
 			</div>
-			<hr/>
-			<div align="right" style="padding-right: 20px;">
-				<c:choose>
-					<c:when test="${logon == null }">
-						<a href="/login"><span>Sign in</span></a> <span>or</span> 
-						<a href="/join"><span>Sign up</span></a>
-					</c:when>
-					<c:otherwise>
-						<b>${logon }</b> 님 환영합니다.
-						<a href="${pageContext.request.contextPath }/chat"><button type="button">채팅방 개설하기</button></a>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<hr/>
 		</div>
 	</div>
+	<script>
+		var ws = new WebSocket("ws://${pageContext.request.serverName}/handle");
+		// 연결이 됬을때. 
+		ws.onopen = function() {
+			console.log("opened ");
+			console.log(this);
+		}
+		// 메시지가 들어올때. 
+		ws.onmessage = function(resp) {
+			console.log(resp);
+			var obj = JSON.parse(resp.data);
+			$("#cnt").html(obj.cnt);
+			$("#info").html(obj.info);
+		}
+		// 연결이 끊길때. 
+		ws.onclose = function() {
+			window.alert("연결이 해제되었습니다.");
+		}
+	</script>
 </body>
 </html>
