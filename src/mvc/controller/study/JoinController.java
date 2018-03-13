@@ -1,9 +1,9 @@
 package mvc.controller.study;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.WebSocketSession;
 
 import mvc.service.GreetService;
 import mvc.service.MemberService;
@@ -21,15 +22,23 @@ public class JoinController {
 	@Autowired
 	GreetService greetService;
 
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	AlertController alertController;
+	
 	@RequestMapping(method = RequestMethod.GET)
-	public String joinHandle(Model model) {
+	public String joinHandle(Model model, HttpSession session) {
 		model.addAttribute("ment", greetService.make());
+		Map sessions = alertController.getSessions();
+		System.out.println("sessions : " + sessions);
+		List ws = (List)sessions.get(session.getId());
+		System.out.println("ws : " + ws);
 		return "join";
 	}
 
-	@Autowired
-	MemberService memberService;
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String joinPostHandle(@RequestParam Map<String, String> param, Model model, HttpSession session) {
 		boolean rst = memberService.addNewOne(param);

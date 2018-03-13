@@ -15,14 +15,18 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	
+	<!-- conponent-scan을 활용하여 패키지를 자동으로 등록시킬 수 있음. -->
+	<context:component-scan base-package="mvc.controller.study" />
+	<context:component-scan base-package="mvc.service" />
+	
 	<!-- WebSocket Handle setting -->
 	<websocket:handlers>
 		<websocket:mapping handler="wsController" path="/handle"/>
+		<websocket:mapping handler="alertController" path="/alert"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
-
-	<!-- conponent-scan을 활용하여 패키지를 자동으로 등록시킬 수 있음. -->
-	<context:component-scan base-package="mvc.controller.study"></context:component-scan>
-	<context:component-scan base-package="mvc.service" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -36,11 +35,14 @@ public class WSController extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//	System.out.println("afterConnectionEstablished.." + session.getId());
 		//	System.out.println(session.getRemoteAddress().getAddress().getHostAddress());	//	접속자 IP주소
-		wsSessions.add(session);
+		if(!wsSessions.contains(session)) {
+			wsSessions.add(session);
+		}
 		
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
 		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속합니다.");
+		
 		Gson gson = new Gson();
 		
 		for(WebSocketSession ws : wsSessions) {
@@ -60,7 +62,7 @@ public class WSController extends TextWebSocketHandler {
 		//	System.out.println("afterConnectionClosed.." + session);
 		wsSessions.remove(session);
 		
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
 		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속을 종료합니다.");
 		Gson gson = new Gson();

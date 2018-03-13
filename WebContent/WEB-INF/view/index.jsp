@@ -22,8 +22,15 @@
 		</div>
 		<hr />
 		<div align="right" style="padding-right: 20px;">
-			<a href="/login"><span>Sign in</span></a> <span>or</span> <a
-				href="/join"><span>Sign up</span></a>
+			<c:choose>
+				<c:when test="${logon !=null }">
+					${logon }님 환영합니다.
+				</c:when>
+				<c:otherwise>
+					<a href="/login"><span>Sign in</span></a> <span>or</span> <a
+						href="/join"><span>Sign up</span></a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<hr />
 		<div>
@@ -33,21 +40,36 @@
 		</div>
 	</div>
 	<script>
-		var ws = new WebSocket("ws://${pageContext.request.serverName}/handle");
+		var ws1 = new WebSocket("ws://${pageContext.request.serverName}/handle");
 		// 연결이 됬을때. 
-		ws.onopen = function() {
-			console.log("opened ");
+		ws1.onopen = function() {
+			//console.log("opened ");
 			console.log(this);
 		}
 		// 메시지가 들어올때. 
-		ws.onmessage = function(resp) {
+		ws1.onmessage = function(resp) {
 			console.log(resp);
 			var obj = JSON.parse(resp.data);
 			$("#cnt").html(obj.cnt);
 			$("#info").html(obj.info);
 		}
 		// 연결이 끊길때. 
-		ws.onclose = function() {
+		ws1.onclose = function() {
+			window.alert("연결이 해제되었습니다.");
+		}
+		
+		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
+		// 연결이 됬을때. 
+		ws2.onopen = function() {
+			//console.log("opened ");
+			console.log(this);
+		}
+		// 메시지가 들어올때. 
+		ws2.onmessage = function(resp) {
+			console.log(resp);
+		}
+		// 연결이 끊길때. 
+		ws2.onclose = function() {
 			window.alert("연결이 해제되었습니다.");
 		}
 	</script>
