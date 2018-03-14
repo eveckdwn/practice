@@ -20,6 +20,8 @@
 	<context:component-scan base-package="mvc.service" />
 	
 	<!-- WebSocket Handle setting -->
+	<bean id="sessions" class="mvc.model.WebSocketMap"/>
+	
 	<websocket:handlers>
 		<websocket:mapping handler="wsController" path="/handle"/>
 		<websocket:mapping handler="alertController" path="/alert"/>

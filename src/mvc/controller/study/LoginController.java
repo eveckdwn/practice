@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mvc.model.WebSocketMap;
 import mvc.service.MemberService;
 
 @Controller
@@ -24,6 +25,9 @@ public class LoginController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	WebSocketMap sessions;
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String loginPHandle(@RequestParam Map map, HttpSession session, Model model) {

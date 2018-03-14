@@ -41,7 +41,10 @@ public class WSController extends TextWebSocketHandler {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
-		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속합니다.");
+		//map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "에서 접속합니다.");
+		//	port가 달라서 cnt가 올라감.
+		//	확인 : map.put("info", session.getRemoteAddress().toString() + "에서 접속합니다.");
+				
 		
 		Gson gson = new Gson();
 		

@@ -1,9 +1,12 @@
 package mvc.controller.study;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.google.gson.Gson;
+
+import mvc.model.WebSocketMap;
 import mvc.service.GreetService;
 import mvc.service.MemberService;
 
@@ -26,24 +33,29 @@ public class JoinController {
 	MemberService memberService;
 	
 	@Autowired
-	AlertController alertController;
+	WebSocketMap sessions;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String joinHandle(Model model, HttpSession session) {
 		model.addAttribute("ment", greetService.make());
-		Map sessions = alertController.getSessions();
-		System.out.println("sessions : " + sessions);
-		List ws = (List)sessions.get(session.getId());
-		System.out.println("ws : " + ws);
 		return "join";
 	}
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String joinPostHandle(@RequestParam Map<String, String> param, Model model, HttpSession session) {
+	public String joinPostHandle(@RequestParam Map<String, String> param, Model model, HttpSession session) throws IOException {
 		boolean rst = memberService.addNewOne(param);
 		if (rst) {
 			session.setAttribute("logon", param.get("id"));
+			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
+			Map data = new HashMap();
+			data.put("cnt", s.size());
+			data.put("info", param.get("id") + "님 어서오세요.");
+			Gson gson = new Gson();
+			for(WebSocketSession ws : s) {
+				ws.sendMessage(new TextMessage(gson.toJson(data)));
+			}
+			
 			return "redirect:/";
 		} else {
 			model.addAttribute("err", "계정생성에서 문제가 있었습니다.");

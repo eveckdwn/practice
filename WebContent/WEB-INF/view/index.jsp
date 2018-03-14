@@ -21,6 +21,10 @@
 			<small>- ${ment } -</small>
 		</div>
 		<hr />
+		<div class="alert alert-warning alert-dismissible" id="warn" style="display: none">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>경고!</strong> 다른 윈도우 혹은 탭에서 상태가 변경되었습니다.
+		</div>
 		<div align="right" style="padding-right: 20px;">
 			<c:choose>
 				<c:when test="${logon !=null }">
@@ -59,18 +63,10 @@
 		}
 		
 		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
-		// 연결이 됬을때. 
-		ws2.onopen = function() {
-			//console.log("opened ");
-			console.log(this);
-		}
 		// 메시지가 들어올때. 
-		ws2.onmessage = function(resp) {
-			console.log(resp);
-		}
-		// 연결이 끊길때. 
-		ws2.onclose = function() {
-			window.alert("연결이 해제되었습니다.");
+		ws2.onmessage = function(rst) {
+			console.log(rst);
+			$("#warn").show();
 		}
 	</script>
 </body>
