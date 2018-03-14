@@ -68,6 +68,7 @@ input {
 			}else{
 				$.post("/join/confirm", {id: $("#id").val()},
 					function(rst){
+						console.log(rst);
 						if(rst){
 							$("#checkrst").css("color", "green");
 							$("#checkrst").html("사용하실 수 있는 아이디입니다.");
@@ -78,6 +79,11 @@ input {
 					});
 			}
 		});
+		
+		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
+		ws2.onmessage = function(rst) {
+			console.log(rst);
+		}
 	</script>
 </body>
 </html>

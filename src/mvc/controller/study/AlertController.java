@@ -18,7 +18,6 @@ public class AlertController extends TextWebSocketHandler {
 	@Autowired
 	WebSocketMap sessions;
 	
-
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// HttpSession 을 접근해서 정보를 얻어와야 함..그냥은 안되고..
@@ -27,9 +26,9 @@ public class AlertController extends TextWebSocketHandler {
 		// 되어있는 값들을 WebSokcetSession에서 뽑아다 쓸수 있게 넣어줌.
 		// 그러면서 추가로. "HTTP.SESSION.ID" 라는 키로 사용중인 session id도 넣어주고.
 		
-		System.out.println("AlertController.connectionEstablished");
+		//	System.out.println("AlertController.connectionEstablished");
 		Map<String, Object> map = session.getAttributes();
-		System.out.println(map);
+		//	System.out.println(map);
 		String key = (String) session.getAttributes().get("HTTP.SESSION.ID");
 		if (!sessions.containsKey(key))
 			sessions.put(key, new ArrayList<>());
@@ -44,9 +43,9 @@ public class AlertController extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		String key = (String) session.getAttributes().get("HTTP.SESSION.ID");
-		System.out.println(key);
-		System.out.println(sessions);
-		System.out.println(sessions.get(key));
+		//	System.out.println(key);
+		//	System.out.println(sessions);
+		//	System.out.println(sessions.get(key));
 		
 		sessions.get(key).remove(session);
 		if (sessions.get(key).isEmpty()) {

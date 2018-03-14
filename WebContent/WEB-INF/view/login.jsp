@@ -24,8 +24,8 @@ input {
 			</div>
 			<hr />
 			<div align="right" style="padding-right: 20px;">
-				<span style="font-weight: bold">Sign in</span></a> <span>or</span> 
-				<a href="/join"><span>Sign up</span></a>
+				<span style="font-weight: bold">Sign in</span></a> <span>or</span> <a
+					href="/join"><span>Sign up</span></a>
 			</div>
 			<hr />
 			<div style="font-size: 17pt; margin-top: 50px;">
@@ -34,23 +34,32 @@ input {
 			</div>
 			<div>
 				<c:if test="${!empty err }">
-					<span style="color:red">${err }</span>
+					<span style="color: red">${err }</span>
 				</c:if>
 				<form action="/login" method="post"
-					style="width: 330px; text-align: left; line-height: 34px;" autocomplete="off">
+					style="width: 330px; text-align: left; line-height: 34px;"
+					autocomplete="off">
 					<p>
 						<b>ID(*)</b> <small id="checkrst"></small><br /> <input
-							type="text" name="id" id="id" pattern="[a-zA-Z]+" value="${param.id }">
+							type="text" name="id" id="id" pattern="[a-zA-Z]+"
+							value="${param.id }">
 					</p>
 					<p>
 						<b>PASS(*)</b><br /> <input type="password" name="pass">
 					</p>
 					<p>
-						<button id="sbt" type="submit" style="width: 100%; height: 30px;">로 그 인</button>
+						<button id="sbt" type="submit" style="width: 100%; height: 30px;">로
+							그 인</button>
 					</p>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script>
+		var ws2 = new WebSocket("ws://${pageContext.request.serverName}/alert");
+		ws2.onmessage = function(rst) {
+			console.log(rst);
+		}
+	</script>
 </body>
 </html>

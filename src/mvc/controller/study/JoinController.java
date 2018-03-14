@@ -1,6 +1,7 @@
 package mvc.controller.study;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ public class JoinController {
 		boolean rst = memberService.addNewOne(param);
 		if (rst) {
 			session.setAttribute("logon", param.get("id"));
+			
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", s.size());
@@ -65,8 +67,10 @@ public class JoinController {
 
 	@RequestMapping("/confirm")
 	@ResponseBody
-	public String confirmHandle(@RequestParam String id) {
-		return String.valueOf(memberService.confirmId(id));
+	public boolean confirmHandle(@RequestParam String id) {
+		Map confirm = (Map) memberService.confirmId(id);
+		BigDecimal bd = (BigDecimal)confirm.get("COUNT");
+		return 0 == bd.intValue(); 
 	}
 
 }

@@ -15,8 +15,8 @@ public class MemberService {
 		this.template = template;
 	}
 	
-	public boolean confirmId(String id) {
-		return template.selectOne("member.checkId", id) == null;
+	public Map confirmId(String id) {
+		return template.selectOne("member.checkId", id);
 	}
 	
 	public boolean addNewOne(Map map) {

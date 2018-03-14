@@ -8,6 +8,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="checkId" resultType="hashmap">
-		select * from member where id = #{id}
+		select member.id, member.email, member.pass, member.lv, COUNT(*) as count from member where id = #{id} group by member.id, member.pass, member.email, member.lv
 	</select>
 </mapper>
