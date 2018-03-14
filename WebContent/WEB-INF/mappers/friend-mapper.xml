@@ -6,35 +6,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 친구 목록 조회 -->
 	<select id="checkFriends" resultType="hashmap">
 		select * from friend where
-		one = ${id}
+		one = #{one} and status=1
 	</select>
 
 	<!-- 친구 추가 요청 -->
 	<insert id="followFriend" parameterType="hashmap">
 		insert into friend
-		values(friend_seq.nextval, ${one}, ${other}, 0, sysdate)
+		values(friend_seq.nextval, #{one}, #{other}, 0, sysdate)
 	</insert>
 
-	<!-- 친구 수락 목록 조회 -->
+	<!-- 친구 요청 목록 조회 -->
 	<select id="requestFriend" resultType="hashmap">
 		select * from friend where
-		other = ${other} and status=0
+		other = #{other} and status=0
 	</select>
 
 	<!-- 친구 수락 -->
 	<update id="acceptFriend" parameterType="hashmap">
 		update friend set status
-		= 1 where one = ${one} and other=${other}
+		= 1 where one = #{one} and other=#{other}
 	</update>
 
 	<!-- 친구 거절 -->
 	<delete id="refuseFriend" parameterType="hashmap">
-		delete from friend where one=${one} and other=${other}
+		delete from friend where one=#{one} and other=#{other}
 	</delete>
 
 	<!-- 친구 삭제 -->
 	<delete id="deleteFriend" parameterType="hashmap">
-		delete from friend where (one=${one} and other=${other}) or (one=#{other} and other=${one}) 
+		delete from friend where (one=#{one} and other=#{other}) or (one=#{other} and other=#{one}) 
 	</delete>
 
 </mapper>
