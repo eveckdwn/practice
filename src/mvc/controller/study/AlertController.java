@@ -14,17 +14,17 @@ import mvc.model.WebSocketMap;
 @Controller("alertController")
 public class AlertController extends TextWebSocketHandler {
 
-	// À¥¼ÒÄÏ Ä¿³Ø¼ÇÀÌ ¿­¸±¶§, ¼¼¼ÇÀ» Å°·Î ÇØ¼­ ¹­¾î¼­ °ü¸®¸¦ ÇÏ·Á°í ÇÔ.
+	// ì›¹ì†Œì¼“ ì»¤ë„¥ì…˜ì´ ì—´ë¦´ë•Œ, ì„¸ì…˜ì„ í‚¤ë¡œ í•´ì„œ ë¬¶ì–´ì„œ ê´€ë¦¬ë¥¼ í•˜ë ¤ê³  í•¨.
 	@Autowired
 	WebSocketMap sessions;
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// HttpSession À» Á¢±ÙÇØ¼­ Á¤º¸¸¦ ¾ò¾î¿Í¾ß ÇÔ..±×³ÉÀº ¾ÈµÇ°í..
-		// HttpSessionHandshakeInterceptor ¸¦ ¼³Á¤ÇØµÎ¸é,
-		// SpringÀÌ ÀÌ ¸Ş¼­µå¸¦ È£ÃâÇÒ¶§, ÀÌ Å¬¶óÀÌ¾ğÆ®°¡ »ç¿ëÁßÀÎ HttpSessionÀÇ setAttribute
-		// µÇ¾îÀÖ´Â °ªµéÀ» WebSokcetSession¿¡¼­ »Ì¾Æ´Ù ¾µ¼ö ÀÖ°Ô ³Ö¾îÁÜ.
-		// ±×·¯¸é¼­ Ãß°¡·Î. "HTTP.SESSION.ID" ¶ó´Â Å°·Î »ç¿ëÁßÀÎ session idµµ ³Ö¾îÁÖ°í.
+		// HttpSession ì„ ì ‘ê·¼í•´ì„œ ì •ë³´ë¥¼ ì–»ì–´ì™€ì•¼ í•¨..ê·¸ëƒ¥ì€ ì•ˆë˜ê³ ..
+		// HttpSessionHandshakeInterceptor ë¥¼ ì„¤ì •í•´ë‘ë©´,
+		// Springì´ ì´ ë©”ì„œë“œë¥¼ í˜¸ì¶œí• ë•Œ, ì´ í´ë¼ì´ì–¸íŠ¸ê°€ ì‚¬ìš©ì¤‘ì¸ HttpSessionì˜ setAttribute
+		// ë˜ì–´ìˆëŠ” ê°’ë“¤ì„ WebSokcetSessionì—ì„œ ë½‘ì•„ë‹¤ ì“¸ìˆ˜ ìˆê²Œ ë„£ì–´ì¤Œ.
+		// ê·¸ëŸ¬ë©´ì„œ ì¶”ê°€ë¡œ. "HTTP.SESSION.ID" ë¼ëŠ” í‚¤ë¡œ ì‚¬ìš©ì¤‘ì¸ session idë„ ë„£ì–´ì£¼ê³ .
 		
 		//	System.out.println("AlertController.connectionEstablished");
 		Map<String, Object> map = session.getAttributes();
@@ -36,7 +36,7 @@ public class AlertController extends TextWebSocketHandler {
 		
 		for(String k : sessions.keySet() ) {
 			int size = sessions.get(k).size();
-			System.out.println("¡æ " + k + " / ("+size+")" );
+			System.out.println("â†’ " + k + " / ("+size+")" );
 		}
 	}
 

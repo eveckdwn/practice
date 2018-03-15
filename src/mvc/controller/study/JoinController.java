@@ -52,7 +52,7 @@ public class JoinController {
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", s.size());
-			data.put("info", param.get("id") + "´Ô ¾î¼­¿À¼¼¿ä.");
+			data.put("info", param.get("id") + "ë‹˜ ì–´ì„œì˜¤ì„¸ìš”.");
 			Gson gson = new Gson();
 			for(WebSocketSession ws : s) {
 				ws.sendMessage(new TextMessage(gson.toJson(data)));
@@ -60,7 +60,7 @@ public class JoinController {
 			
 			return "redirect:/";
 		} else {
-			model.addAttribute("err", "°èÁ¤»ı¼º¿¡¼­ ¹®Á¦°¡ ÀÖ¾ú½À´Ï´Ù.");
+			model.addAttribute("err", "ê³„ì •ìƒì„±ì—ì„œ ë¬¸ì œê°€ ìˆì—ˆìŠµë‹ˆë‹¤.");
 			return "join";
 		}
 	}

@@ -13,15 +13,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 /*
- * ws Åë½ÅÀ» Á¦¾îÇÒ¿ëµµÀÇ ÄÁÆ®·Ñ·¯ ±¸Çö
- * 	1. WebSocketHandler (I) ¸¦ implements °É¾î¼­ ¸ñÀû¿¡ °³Á¶ÇØ¼­ »ç¿ë.
- * 	2. ¸ñÀû¿¡ ¸Â´Â WebSocketHandler¸¦ extends °É¾î¼­ »ç¿ë
+ * ws í†µì‹ ì„ ì œì–´í• ìš©ë„ì˜ ì»¨íŠ¸ë¡¤ëŸ¬ êµ¬í˜„
+ * 	1. WebSocketHandler (I) ë¥¼ implements ê±¸ì–´ì„œ ëª©ì ì— ê°œì¡°í•´ì„œ ì‚¬ìš©.
+ * 	2. ëª©ì ì— ë§ëŠ” WebSocketHandlerë¥¼ extends ê±¸ì–´ì„œ ì‚¬ìš©
  * 		- TextWebSocketHandler  / BinaryWebSocketHandler
  * 
- *  WebSocket Handler ÀÇ ¸ÅÇÎÀº, spring ¼³Á¤ÆÄÀÏ¿¡.
+ *  WebSocket Handler ì˜ ë§¤í•‘ì€, spring ì„¤ì •íŒŒì¼ì—.
  */
 
-@Controller("wsController")	//scan À¸·Î µî·ÏµÇ´Â ºóÀº Å¬·¡½º¸íÀ¸·Î µî·ÏµÊ. ¹Ù²Ü¼ö ÀÖÀ½.	 
+@Controller("wsController")	//scan ìœ¼ë¡œ ë“±ë¡ë˜ëŠ” ë¹ˆì€ í´ë˜ìŠ¤ëª…ìœ¼ë¡œ ë“±ë¡ë¨. ë°”ê¿€ìˆ˜ ìˆìŒ.	 
 public class WSController extends TextWebSocketHandler {
 	
 	Set<WebSocketSession> wsSessions;
@@ -31,19 +31,19 @@ public class WSController extends TextWebSocketHandler {
 		wsSessions = new LinkedHashSet<>();
 	}
 
-	@Override	//	Å¬¶óÃø¿¡¼­ À¥¼ÒÄÏ ¿¬°áµÇ¾úÀ» ¶§
+	@Override	//	í´ë¼ì¸¡ì—ì„œ ì›¹ì†Œì¼“ ì—°ê²°ë˜ì—ˆì„ ë•Œ
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//	System.out.println("afterConnectionEstablished.." + session.getId());
-		//	System.out.println(session.getRemoteAddress().getAddress().getHostAddress());	//	Á¢¼ÓÀÚ IPÁÖ¼Ò
+		//	System.out.println(session.getRemoteAddress().getAddress().getHostAddress());	//	ì ‘ì†ì IPì£¼ì†Œ
 		if(!wsSessions.contains(session)) {
 			wsSessions.add(session);
 		}
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
-		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "¿¡¼­ Á¢¼ÓÇÕ´Ï´Ù.");
-		//	port°¡ ´Ş¶ó¼­ cnt°¡ ¿Ã¶ó°¨.
-		//	È®ÀÎ : map.put("info", session.getRemoteAddress().toString() + "¿¡¼­ Á¢¼ÓÇÕ´Ï´Ù.");
+		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "ì—ì„œ ì ‘ì†í•©ë‹ˆë‹¤.");
+		//	portê°€ ë‹¬ë¼ì„œ cntê°€ ì˜¬ë¼ê°.
+		//	í™•ì¸ : map.put("info", session.getRemoteAddress().toString() + "ì—ì„œ ì ‘ì†í•©ë‹ˆë‹¤.");
 				
 		
 		Gson gson = new Gson();
@@ -55,19 +55,19 @@ public class WSController extends TextWebSocketHandler {
 		
 	}
 
-	@Override	//	Å¬¶óÃø¿¡¼­ ¸Ş¼¼Áö°¡ µé¾î¿Ã ¶§
+	@Override	//	í´ë¼ì¸¡ì—ì„œ ë©”ì„¸ì§€ê°€ ë“¤ì–´ì˜¬ ë•Œ
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("handleTextMessage.." + session +" / " + message);
 	}
 
-	@Override	//	Å¬¶óÃø°ú ¿¬°áÀÌ ÇØÁ¦µÉ ¶§ 	
+	@Override	//	í´ë¼ì¸¡ê³¼ ì—°ê²°ì´ í•´ì œë  ë•Œ 	
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//	System.out.println("afterConnectionClosed.." + session);
 		wsSessions.remove(session);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("cnt", wsSessions.size());
-		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "¿¡¼­ Á¢¼ÓÀ» Á¾·áÇÕ´Ï´Ù.");
+		map.put("info", session.getRemoteAddress().getAddress().getHostAddress() + "ì—ì„œ ì ‘ì†ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 		Gson gson = new Gson();
 		
 		for(WebSocketSession ws : wsSessions) {

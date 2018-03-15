@@ -29,15 +29,31 @@
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
+	
+	<!-- gson -->
+	<bean class="com.google.gson.Gson"/>
+	
+	<!-- view setting -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<array>
+				<value>/WEB-INF/tiles/*-definition.xml</value>
+			</array>
+		</property>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
+		<property name="order" value="2"></property>
 	</bean>
 
 	<!-- DataSource Start -->
-	<!-- Academy
+	<!-- Academy -->
 	<bean id="ds"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -45,8 +61,8 @@
 		<property name="username" value="root" />
 		<property name="password" value="oracle" />
 	</bean>
-	 -->
-	 <!-- Home -->
+	 
+	 <!-- Home 
 	 <bean id="ds"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -54,6 +70,7 @@
 		<property name="username" value="root" />
 		<property name="password" value="dka9gh0" />
 	</bean>
+	-->
 	<!-- DataSource End -->
 
 	<!-- SqlSessionFactory Start -->

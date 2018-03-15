@@ -19,19 +19,19 @@ public class MailService {
 		MimeMessage message = mailSender.createMimeMessage();
 		
 		try {
-			//	¹ŞÀ» »ç¶÷
+			//	ë°›ì„ ì‚¬ëŒ
 			message.setRecipient(RecipientType.TO, new InternetAddress(target));
 			
-			//	º¸³»´Â »ç¶÷
+			//	ë³´ë‚´ëŠ” ì‚¬ëŒ
 			message.setFrom(new InternetAddress("admin@spring.io"));
 			
-			//	Á¦¸ñ
-			message.setSubject("[SpringIO] °¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù.");
+			//	ì œëª©
+			message.setSubject("[SpringIO] ê°€ì…ì„ ì¶•í•˜ë“œë¦½ë‹ˆë‹¤.");
 			
-			//	content ¼³Á¤À» text/html;charset=utf-8ÀÌ¶ó°í º¸³»¸é .. HTML·Î º¸³¾ ¼öµµ ÀÖ´Ù.
-			String content = "°¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù.<br/>»ç¿ë¿¡ ºÒÆíÇÏ½ÅÁ¡ÀÌ ÀÖÀ¸¸é <b>°í°´¼¾ÅÍ</b>¿¡ ±ÛÀ» ³²°ÜÁÖ¼¼¿ä.<br/>";
-			content += "ÀÎÁõÀ» ¿øÇÏ½Ã¸é <a href=\"http://192.168.10.65/certification/\">¿©±â</a>¸¦ ´­·¯ÁÖ¼¼¿ä.";
-			content += "<a href=\"http://192.168.10.65/\">ÆäÀÌÁö µÑ·¯º¸±â</a><br/>";
+			//	content ì„¤ì •ì„ text/html;charset=utf-8ì´ë¼ê³  ë³´ë‚´ë©´ .. HTMLë¡œ ë³´ë‚¼ ìˆ˜ë„ ìˆë‹¤.
+			String content = "ê°€ì…ì„ ì¶•í•˜ë“œë¦½ë‹ˆë‹¤.<br/>ì‚¬ìš©ì— ë¶ˆí¸í•˜ì‹ ì ì´ ìˆìœ¼ë©´ <b>ê³ ê°ì„¼í„°</b>ì— ê¸€ì„ ë‚¨ê²¨ì£¼ì„¸ìš”.<br/>";
+			content += "ì¸ì¦ì„ ì›í•˜ì‹œë©´ <a href=\"http://192.168.10.65/certification/\">ì—¬ê¸°</a>ë¥¼ ëˆŒëŸ¬ì£¼ì„¸ìš”.";
+			content += "<a href=\"http://192.168.10.65/\">í˜ì´ì§€ ë‘˜ëŸ¬ë³´ê¸°</a><br/>";
 			message.setContent(content, "text/html;charset=utf-8");
 			mailSender.send(message);
 			return true;

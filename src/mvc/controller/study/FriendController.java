@@ -24,8 +24,14 @@ public class FriendController {
 		return "friend/friends";
 	}
 	
-	@RequestMapping("/follow")
-	public String followHandle() {
+	@RequestMapping(path="/follow", method=RequestMethod.GET)
+	public String followHandle() {	//	친구 추가 input
+		return "/friend/follow";
+	}
+	
+	@RequestMapping(path="/follow", method=RequestMethod.POST)
+	public String followSearchHandle(@RequestParam String id) {	//	친구 아이디 검색
+		
 		return "/friend/follow";
 	}
 	

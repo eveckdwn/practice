@@ -49,7 +49,7 @@ public class LogInOutController {
 			List<WebSocketSession> s = (List<WebSocketSession>) sessions.get(session.getId());
 			Map data = new HashMap();
 			data.put("cnt", sessions.size());
-			data.put("info", map.get("id") + "´Ô ¾î¼­¿À¼¼¿ä.");
+			data.put("info", map.get("id") + "ë‹˜ ì–´ì„œì˜¤ì„¸ìš”.");
 			Gson gson = new Gson();
 			for(WebSocketSession ws : s) {
 				ws.sendMessage(new TextMessage(gson.toJson(data)));
@@ -57,16 +57,19 @@ public class LogInOutController {
 			return "redirect:/";
 		case 1:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "·Î±×ÀÎÇÏ´Â °úÁ¤¿¡¼­ ¹®Á¦°¡ ÀÖ¾ú½À´Ï´Ù.\n¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.");
-			return "login";
+			model.addAttribute("err", "ë¡œê·¸ì¸í•˜ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ìˆì—ˆìŠµë‹ˆë‹¤.\nì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.");
+			model.addAttribute("main", "login.jsp");
+			return "t_el";
 		case 2:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "·Î±×ÀÎÇÏ´Â °úÁ¤¿¡¼­ ¹®Á¦°¡ ÀÖ¾ú½À´Ï´Ù.\n¾ÆÀÌµğ È¤Àº ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
-			return "login";
+			model.addAttribute("err", "ë¡œê·¸ì¸í•˜ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ìˆì—ˆìŠµë‹ˆë‹¤.\nì•„ì´ë”” í˜¹ì€ ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+			model.addAttribute("main", "login.jsp");
+			return "t_el";
 		default:
 			model.addAttribute("ment", greetService.make());
-			model.addAttribute("err", "·Î±×ÀÎÇÏ´Â °úÁ¤¿¡¼­ ¹®Á¦°¡ ÀÖ¾ú½À´Ï´Ù.");
-			return "login";
+			model.addAttribute("err", "ë¡œê·¸ì¸í•˜ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ìˆì—ˆìŠµë‹ˆë‹¤.");
+			model.addAttribute("main", "login.jsp");
+			return "t_el";
 		}
 	}
 	

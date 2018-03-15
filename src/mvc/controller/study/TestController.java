@@ -15,7 +15,7 @@ public class TestController {
 	@RequestMapping("/test/email")
 	public String emailTestHandle(@RequestParam String target) {
 		boolean b = mailService.sendWelcomeMail(target);
-		System.out.println("¸ŞÀÏ Àü¼Û °á°ú = " + b);
+		System.out.println("ë©”ì¼ì„ ë³´ëƒ„ = " + b);
 		return "certification";
 	}
 }

@@ -23,11 +23,6 @@ input {
 				<small>- ${ment } -</small>
 			</div>
 			<hr />
-			<div align="right" style="padding-right: 20px;">
-				<span style="font-weight: bold">Sign in</span></a> <span>or</span> <a
-					href="/join"><span>Sign up</span></a>
-			</div>
-			<hr />
 			<div style="font-size: 17pt; margin-top: 50px;">
 				Log in your personal account<br /> <span style="font-size: 11pt;">로그인시
 					모든 요소는 필수기입 항목입니다.</span>

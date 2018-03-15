@@ -14,7 +14,7 @@ a {
 
 input {
 	padding: 5px;
-	width: 200px;
+	width: 100%;
 }
 </style>
 <body>
@@ -23,11 +23,6 @@ input {
 			<div>
 				<h1>Spring Project</h1>
 				<small>- ${ment } -</small>
-			</div>
-			<hr />
-			<div align="right" style="padding-right: 20px;">
-				<a href="/login"><span>Sign in</span></a> <span>or</span> <span
-					style="font-weight: bold">Sign up</span>
 			</div>
 			<hr />
 			<div style="font-size: 17pt; margin-top: 50px;">
