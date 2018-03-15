@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 친구 목록 조회 -->
 	<select id="checkFriends" resultType="hashmap">
 		select * from friend where
-		one = #{id}
+		one = #{one} and status=1
 	</select>
 
 	<!-- 친구 추가 요청 -->
@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(friend_seq.nextval, #{one}, #{other}, 0, sysdate)
 	</insert>
 
-	<!-- 친구 수락 목록 조회 -->
+	<!-- 친구 요청 목록 조회 -->
 	<select id="requestFriend" resultType="hashmap">
 		select * from friend where
 		other = #{other} and status=0

@@ -17,7 +17,7 @@ public class FriendController {
 	@Autowired
 	FriendService friendService;
 	
-	@RequestMapping(method=RequestMethod.GET)	//	ƒ£±∏ ∏Ò∑œ ¡∂»∏
+	@RequestMapping(method=RequestMethod.GET)	//	ÏπúÍµ¨ Î™©Î°ù Ï°∞Ìöå
 	public String listHandle(@RequestParam String one, Model model) {
 		List friends = friendService.checkFriends(one);
 		model.addAttribute("friends", friends);
@@ -26,12 +26,12 @@ public class FriendController {
 	
 	@RequestMapping("/follow")
 	public String followHandle() {
-		return "";
+		return "/friend/follow";
 	}
 	
 	@RequestMapping("/request")
 	public String requestHandle() {
-		return "";
+		return "/friend/request";
 	}
 
 }
